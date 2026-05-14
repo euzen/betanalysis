@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100;
+  }
+
+  /* Dark mode global overrides */
+  .dark .bg-white { background-color: rgb(17 24 39) !important; }
+  .dark .bg-gray-50 { background-color: rgb(17 24 39) !important; }
+  .dark .bg-gray-100 { background-color: rgb(31 41 55) !important; }
+  .dark .border-gray-200 { border-color: rgb(55 65 81) !important; }
+  .dark .border-gray-100 { border-color: rgb(31 41 55) !important; }
+  .dark .text-gray-900 { color: rgb(243 244 246) !important; }
+  .dark .text-gray-800 { color: rgb(229 231 235) !important; }
+  .dark .text-gray-700 { color: rgb(209 213 219) !important; }
+  .dark .text-gray-600 { color: rgb(156 163 175) !important; }
+  .dark .text-gray-500 { color: rgb(156 163 175) !important; }
+  .dark .hover\:bg-gray-50:hover { background-color: rgb(31 41 55) !important; }
+  .dark .hover\:bg-gray-100:hover { background-color: rgb(31 41 55) !important; }
+  .dark thead .bg-gray-50 { background-color: rgb(31 41 55) !important; }
+  .dark .divide-gray-50 > :not([hidden]) ~ :not([hidden]) { border-color: rgb(31 41 55); }
+  .dark input, .dark select, .dark textarea {
+    background-color: rgb(31 41 55) !important;
+    color: rgb(243 244 246) !important;
+    border-color: rgb(55 65 81) !important;
+  }
+  .dark input::placeholder, .dark textarea::placeholder { color: rgb(107 114 128) !important; }
+
+  /* Dark mode – status badges */
+  .dark .bg-green-100 { background-color: rgb(20 83 45 / 0.4) !important; }
+  .dark .text-green-700 { color: rgb(134 239 172) !important; }
+  .dark .bg-red-100 { background-color: rgb(127 29 29 / 0.4) !important; }
+  .dark .text-red-700 { color: rgb(252 165 165) !important; }
+  .dark .bg-yellow-100 { background-color: rgb(113 63 18 / 0.4) !important; }
+  .dark .text-yellow-700 { color: rgb(253 224 71) !important; }
+  .dark .bg-blue-100 { background-color: rgb(30 58 138 / 0.4) !important; }
+  .dark .text-blue-700 { color: rgb(147 197 253) !important; }
+  .dark .bg-purple-50 { background-color: rgb(59 7 100 / 0.3) !important; }
+  .dark .text-purple-600 { color: rgb(216 180 254) !important; }
+
+  /* Dark mode – streak banners */
+  .dark .bg-green-50 { background-color: rgb(20 83 45 / 0.2) !important; }
+  .dark .border-green-200 { border-color: rgb(22 101 52) !important; }
+  .dark .text-green-700 { color: rgb(134 239 172) !important; }
+  .dark .bg-red-50 { background-color: rgb(127 29 29 / 0.2) !important; }
+  .dark .border-red-200 { border-color: rgb(153 27 27) !important; }
+  .dark .text-red-700 { color: rgb(252 165 165) !important; }
+  .dark .bg-blue-50 { background-color: rgb(30 58 138 / 0.2) !important; }
+  .dark .border-blue-200 { border-color: rgb(29 78 216) !important; }
+
+  /* Dark mode – tabulka záhlaví a řádky */
+  .dark .border-gray-50 { border-color: rgb(31 41 55) !important; }
+  .dark .text-gray-300 { color: rgb(107 114 128) !important; }
+  .dark .text-gray-400 { color: rgb(107 114 128) !important; }
+
+  /* Dark mode – modální dialogy, dropdowny */
+  .dark .shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5) !important; }
+  .dark .border-gray-300 { border-color: rgb(55 65 81) !important; }
+}
+
+@media print {
+  /* Schovej navigaci a UI prvky */
+  aside, nav, header, .print\:hidden { display: none !important; }
+  /* Zruš padding hlavního layoutu */
+  main { padding: 0 !important; max-width: 100% !important; }
+  /* Bílé pozadí, černý text */
+  body, .bg-gray-50, .bg-white { background: white !important; }
+  /* Zabraň rozříznutí karet přes stránky */
+  .bg-white.rounded-xl { break-inside: avoid; page-break-inside: avoid; }
+  /* Schovej toast kontejner */
+  .fixed.bottom-20, .fixed.bottom-6 { display: none !important; }
+
+  /* Reporting PDF – každá sekce na vlastní stránce */
+  .print-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+  /* KPI karty spolu na první stránce, nerozděluj */
+  .print-no-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* Schovat grafy které se v PDF špatně renderují */
+  .print-hide-chart { display: none !important; }
+  /* Menší mezery ve flex layout */
+  .flex.flex-col.gap-6 { gap: 12pt !important; }
+  /* Tabulky přes celou šířku */
+  table { width: 100% !important; font-size: 9pt !important; }
+  th, td { padding: 4pt 6pt !important; }
+  /* Čísla zisku zůstanou barevná */
+  .text-green-600 { color: #16a34a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .text-red-600, .text-red-500 { color: #dc2626 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  /* Badge barvy */
+  .bg-green-100 { background-color: #dcfce7 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .bg-red-100 { background-color: #fee2e2 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .bg-yellow-100 { background-color: #fef9c3 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(1rem); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.animate-in { animation: slideInRight 0.2s ease-out; }
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500;
+  }
+  
+  .btn-success {
+    @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+  }
+  
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+  
+  .stat-card {
+    @apply bg-white rounded-lg shadow-md p-4 border-l-4;
+  }
+  
+  .stat-card-success {
+    @apply border-green-500;
+  }
+  
+  .stat-card-danger {
+    @apply border-red-500;
+  }
+  
+  .stat-card-primary {
+    @apply border-blue-500;
+  }
+}
