@@ -3,7 +3,7 @@ services:
   - type: web
     name: bet-tracker-api
     runtime: python
-    plan: free
+    plan: standard  # Pro plan - persistent disk available
     buildCommand: cd backend && pip install -r requirements.txt
     startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
@@ -18,15 +18,18 @@ services:
       - key: REFRESH_TOKEN_EXPIRE_DAYS
         value: 7
       - key: DATABASE_URL
-        value: sqlite:///./bet_analysis.db
-    # Note: Free tier has ephemeral disk - data resets on deploy/restart
-    # For persistent data, upgrade to paid plan with Disk
+        value: sqlite:///mnt/data/bet_analysis.db
+    # Persistent disk for SQLite database
+    disk:
+      name: data
+      mountPath: /mnt/data
+      sizeGB: 1
 
   # Frontend static site
   - type: web
     name: bet-tracker
     runtime: static
-    plan: free
+    plan: starter
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: frontend/dist
     envVars:
